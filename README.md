@@ -1,2 +1,347 @@
 # Saurandy
 For my beloved husband, Saureesh Bose
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>Happy 6 Months ❤️</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family: Arial, sans-serif;
+}
+
+body{
+background:#8b0000;
+overflow-x:hidden;
+color:white;
+text-align:center;
+min-height:100vh;
+}
+
+/* FLOATING HEARTS */
+
+.heart{
+position:fixed;
+bottom:-20px;
+animation:float 8s linear infinite;
+opacity:0.8;
+z-index:0;
+}
+
+@keyframes float{
+0%{
+transform:translateY(0) rotate(0deg);
+opacity:0;
+}
+10%{
+opacity:1;
+}
+100%{
+transform:translateY(-120vh) rotate(360deg);
+opacity:0;
+}
+}
+
+/* MAIN PAGE */
+
+.container{
+position:relative;
+z-index:2;
+padding:40px 20px;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+min-height:100vh;
+}
+
+.main-box{
+background:rgba(255,255,255,0.12);
+padding:30px;
+border-radius:25px;
+backdrop-filter:blur(10px);
+width:90%;
+max-width:500px;
+box-shadow:0 0 20px rgba(255,255,255,0.2);
+}
+
+h1{
+font-size:40px;
+margin-bottom:10px;
+}
+
+.subtitle{
+font-size:18px;
+margin-bottom:25px;
+color:#ffd6e7;
+}
+
+button{
+padding:14px 22px;
+border:none;
+border-radius:14px;
+font-size:16px;
+cursor:pointer;
+margin:10px;
+transition:0.3s;
+font-weight:bold;
+}
+
+.start-btn{
+background:#ff69b4;
+color:white;
+}
+
+.option-btn{
+background:white;
+color:#c2185b;
+width:100%;
+}
+
+button:hover{
+transform:scale(1.05);
+}
+
+/* QUIZ */
+
+#quizPage{
+display:none;
+}
+
+#question{
+margin-bottom:20px;
+font-size:24px;
+}
+
+#answers{
+display:flex;
+flex-direction:column;
+}
+
+/* FINAL PAGE */
+
+#finalPage{
+display:none;
+}
+
+.final-text{
+font-size:28px;
+margin-bottom:20px;
+}
+
+.video-btn{
+background:#00c3ff;
+color:white;
+}
+
+.small-heart{
+font-size:50px;
+margin-bottom:15px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="hearts"></div>
+
+<!-- FIRST PAGE -->
+
+<div class="container" id="homePage">
+
+<div class="main-box">
+
+<h1>Happy 6 Months ❤️</h1>
+
+<p class="subtitle">
+I made something special for you :)
+</p>
+
+<button class="start-btn" onclick="startQuiz()">
+Start Our Quiz 💌
+</button>
+
+</div>
+
+</div>
+
+<!-- QUIZ PAGE -->
+
+<div class="container" id="quizPage">
+
+<div class="main-box">
+
+<h2 id="question"></h2>
+
+<div id="answers"></div>
+
+</div>
+
+</div>
+
+<!-- FINAL PAGE -->
+
+<div class="container" id="finalPage">
+
+<div class="main-box">
+
+<div class="small-heart">💖</div>
+
+<h2 class="final-text">
+You unlocked the surprise 🎉
+</h2>
+
+<p style="margin-bottom:20px;">
+Click below ❤️
+</p>
+
+<a href="PASTE-YOUR-VIDEO-LINK-HERE" target="_blank">
+
+<button class="video-btn">
+Watch Our Edit 🎥
+</button>
+
+</a>
+
+</div>
+
+</div>
+
+<script>
+
+/* FLOATING HEARTS */
+
+const heartsContainer = document.getElementById("hearts");
+
+setInterval(() => {
+
+const heart = document.createElement("div");
+
+heart.classList.add("heart");
+
+const colors = ["#ff69b4","#00c3ff","#ffb6c1"];
+
+heart.innerHTML = "❤";
+
+heart.style.left = Math.random()*100 + "vw";
+
+heart.style.fontSize = (20 + Math.random()*30) + "px";
+
+heart.style.color = colors[Math.floor(Math.random()*colors.length)];
+
+heart.style.animationDuration = (5 + Math.random()*5) + "s";
+
+document.body.appendChild(heart);
+
+setTimeout(() => {
+heart.remove();
+},10000);
+
+},300);
+
+/* QUIZ */
+
+const quiz = [
+
+{
+question:"What’s my favorite thing about you?",
+answers:["Your smile","Your voice","Everything"],
+correct:"Everything"
+},
+
+{
+question:"Who said I love you first?",
+answers:["Me","You","Both"],
+correct:"Both"
+},
+
+{
+question:"What’s our favorite thing to do together?",
+answers:["Call","Sleep","Fight"],
+correct:"Call"
+},
+
+{
+question:"Do I annoy you?",
+answers:["Yes","Never","Sometimes"],
+correct:"Never"
+},
+
+{
+question:"Will you stay with me forever?",
+answers:["Always","No","Maybe"],
+correct:"Always"
+}
+
+];
+
+let currentQuestion = 0;
+let score = 0;
+
+function startQuiz(){
+
+document.getElementById("homePage").style.display="none";
+
+document.getElementById("quizPage").style.display="flex";
+
+loadQuestion();
+
+}
+
+function loadQuestion(){
+
+if(currentQuestion >= quiz.length){
+
+document.getElementById("quizPage").style.display="none";
+
+document.getElementById("finalPage").style.display="flex";
+
+return;
+
+}
+
+document.getElementById("question").innerText =
+quiz[currentQuestion].question;
+
+const answersDiv = document.getElementById("answers");
+
+answersDiv.innerHTML="";
+
+quiz[currentQuestion].answers.forEach(answer=>{
+
+const btn = document.createElement("button");
+
+btn.innerText = answer;
+
+btn.classList.add("option-btn");
+
+btn.onclick = () => {
+
+if(answer === quiz[currentQuestion].correct){
+score++;
+}
+
+currentQuestion++;
+
+loadQuestion();
+
+};
+
+answersDiv.appendChild(btn);
+
+});
+
+}
+
+</script>
+
+</body>
+</html>
