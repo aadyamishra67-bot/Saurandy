@@ -324,12 +324,18 @@ btn.classList.add("option-btn");
 btn.onclick = () => {
 
 if(answer === quiz[currentQuestion].correct){
+
 score++;
-}
 
 currentQuestion++;
 
 loadQuestion();
+
+} else {
+
+alert("Wrong answer😕 Try again baby");
+
+}
 
 };
 
